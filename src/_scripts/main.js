@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ${emojiNameList.map((iconName, i) => `
             <label>
               <input type="radio" name="${qn.name}" value="${i+1}" />
-              <object data="https://s3-ap-southeast-1.amazonaws.com/wogaa-smiley/images/emoji/${iconName}.svg" type="image/svg+xml"></object>
+              <object data="images/emoji/${iconName}.svg" type="image/svg+xml"></object>
             </label>
             `).join('')}
           </div>  
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function isVisible(dom) {
-    dom.classList.contains('show');
+    return dom.classList.contains('show');
   }
   
   document.querySelector('html').addEventListener('click', e => {
@@ -111,27 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
-    const analyticsData = {}
+    const analyticsData = {};
     for(const [key, val] of formData.entries()) {
       analyticsData[key] = val;
-      console.log(key+ ', '+ val); 
     }
 
-    analytics.track('Detail Rating', analyticsData);
-
-    console.log('sent', analyticsData);
+    if (Object.keys(analyticsData).length > 0) {
+      analytics.track('Detail Rating', analyticsData);
+    }
 
     hide(form);
     form.reset();
     show(confirmationBox);
-    debugger;
     setTimeout(() => {
       hide(feedbackDetailContainer);
       hide(confirmationBox);
-    }, 3000);
+    }, 2000);
   });
 
 });
-
-
-
