@@ -1,7 +1,7 @@
 //widget style
 
 .feedback-container {
-  // border: 1px solid black;
+  box-sizing: border-box;
   width: 100%;
 
   .feedback-btn {
@@ -14,15 +14,15 @@
   
     img {
       width: 60px;
-      // margin: auto;
       float: right;
     }
   
   
     ul.emoji-list {
+      background: white;      
       transform: scale(0);
       display: inline-block;
-      margin-right: 10px;
+      margin:0 10px 10px 0;
       padding: 20px;
       box-shadow: 0 6px 100px 0 rgba(0,0,0,.35);
       text-align: center;
@@ -57,7 +57,7 @@
     left: 0;
     height: 100vh;
     background-image: linear-gradient(to top right, rgba(43, 40, 50, 0.8) 0%, rgba(83, 86, 99, 0.8) 45%, rgba(69, 77, 91, 0.6) 60%);
-    padding: 5% 25%;
+    padding: 0 25%;
     z-index: -999;
     transition: opacity 0.3s;
 
@@ -67,14 +67,12 @@
       
     }
 
-    @media screen and (max-width: 480px) {
-      padding-left: 1%;
-      padding-right: 1%;
+    @media screen and (max-width: 545px) {
+      padding: 0 1%;
     }
 
-    @media screen and (min-width: 481px) and (max-width: 870px) {
-      padding-left: 10%;
-      padding-right: 10%;
+    @media screen and (min-width: 546px) and (max-width: 870px) {
+      padding: 0 10%;
     } 
 
     .detail-form, .confirmation-box {
@@ -91,8 +89,8 @@
       transform: translateY(-50%);
 
       &.show {
-        width: 100%;
-        height: unset;
+        width: auto;
+        height: auto;
         opacity: 1;
       }
     }
@@ -138,6 +136,7 @@
       }
 
       .emojis {
+        min-width: 190px;
         label {
           display: inline-block;
           width: 35px;
