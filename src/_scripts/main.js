@@ -12,11 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const emojiNameList = ['love','smile','neutral','sad','angry'].reverse();
 
-  const qnConfigs = [
+  let qnConfigs = [
     { display: 'Ease of use', name: 'easeOfUse' },
     { display: 'Clarity of presentation', name: 'clarityOfPresentation' },
-    { display: 'Technical performance', name: 'techPerformance' }
+    { display: 'Technical performance', name: 'techPerformance' },
+    { display: 'Tell us more', name: 'tellUsMore', type: 'free-text' }
   ];
+
+  const customConfig = window._feedback_config;
+  if (customConfig && Array.isArray(customConfig.qn)) {
+    qnConfigs = [...qnConfigs, ...customConfig.qn];
+  }
 
   feedbackContainer.innerHTML = `
     <div class="feedback-btn">
@@ -27,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div id="feedbackDetail" class="feedback-detail" >
       <form id="detailForm" class="detail-form">
-      ${qnConfigs.map(qn => `
-        <div class="form-group">
+      ${qnConfigs.filter(qn => qn.type !== 'free-text').map(qn => `
+        <div class="form-group bordered">
           <div class="question">${qn.display}</div>
           
           <div class="emojis">
@@ -41,9 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>  
         </div>
       `).join('')}
+        ${qnConfigs.filter(qn => qn.type === 'free-text').map(qn => `
         <div class="form-group">
-          <textarea name="tellUsMore" class="free-text" placeholder="Tell us more"></textarea>
+          <h4 style="margin:0">${qn.display}</h4>
+          <textarea name="${qn.name}" class="free-text" placeholder="${qn.display}"></textarea>
         </div>  
+        `).join('')}
         <button class="submit">Submit</button>
       </form>
 
