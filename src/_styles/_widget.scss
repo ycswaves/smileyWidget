@@ -100,7 +100,7 @@
     }
 
     .detail-form {
-      overflow: scroll;
+      overflow-y: auto;
       max-height: 90%;
 
       button.submit {
