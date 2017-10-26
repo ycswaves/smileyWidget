@@ -2,6 +2,7 @@ function isVisible(selector) {
   var el = document.querySelector(selector);
 
   var computedStyle = window.getComputedStyle(el);
+
   if (computedStyle.opacity === '0') return false;
 
   var d = el.getBoundingClientRect();
@@ -14,7 +15,6 @@ function getRandomInt(min, max) {
 
 casper.test.begin('give overall rating', 7, function suite(test) {
   casper.start('http://localhost:3001/', function() {
-    test.assertTitle('smiley', 'title is the one expected');
     test.assertExists('#giveFeedback', 'feedback button is found');
     test.assertFalsy(this.evaluate(isVisible, '#emojiList'), 'emoji list is hidden initially');
     test.assertFalsy(this.evaluate(isVisible, '#detailForm'), 'detail feedback form is hidden initially');
@@ -29,9 +29,20 @@ casper.test.begin('give overall rating', 7, function suite(test) {
   casper.then(function() {
     test.assertFalsy(this.evaluate(isVisible, '#emojiList'), 'hide emoji list');
     test.assertTruthy(this.evaluate(isVisible, '#detailForm'), 'show detail feedback form');
+    this.click('#detailForm .submit');
   });
-
-
+  
+  casper.then(function() {
+    test.assertTextExists('Thank you', 'page body contains "thank you"');
+  });
+  
+  // casper.then(function() {
+  //   this.waitFor(function() {
+  //     return !this.evaluate(isVisible, '#confirmationBox');
+  //   }, function() {
+  //     test.assertFalsy(this.evaluate(isVisible, '#feedbackDetail'), 'hide detail feedback form');    
+  //   });
+  // });
 
   casper.run(function() {
     test.done();
