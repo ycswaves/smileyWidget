@@ -13,8 +13,8 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-casper.test.begin('give overall rating', 7, function suite(test) {
-  casper.start('http://localhost:3001/', function() {
+casper.test.begin('give overall rating', function suite(test) {
+  casper.start('http://localhost:3000/', function() {
     test.assertExists('#giveFeedback', 'feedback button is found');
     test.assertFalsy(this.evaluate(isVisible, '#emojiList'), 'emoji list is hidden initially');
     test.assertFalsy(this.evaluate(isVisible, '#detailForm'), 'detail feedback form is hidden initially');

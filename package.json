@@ -56,6 +56,7 @@
     "watchify": "~3.9.0 "
   },
   "scripts": {
+    "start": "gulp serve",
     "clean-deps": "rimraf node_modules",
     "casper": "casperjs test ./test/integration.js || true"
   },
